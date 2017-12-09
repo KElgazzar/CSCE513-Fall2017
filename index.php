@@ -1,0 +1,83 @@
+<?php
+/*
+Author: Javed Ur Rehman
+Website: http://www.allphptricks.com/
+*/
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Login</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<?php
+	$db_host = "rds-mysql-ehr-project.crftk2votri2.us-east-2.rds.amazonaws.com"; //Took out :3306
+	$db_user = "jackelalien";
+	$db_pass = "csce513-net";
+	$db_name = "EHR_Networking";
+	
+
+	$link = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+	
+	if($link->connect_error)
+	{
+		echo "Connection Failed.";
+		die("Connection Failed: " . $link->connect_error);
+	}
+	session_start();
+    // If form submitted, insert values into the database.
+    if (isset($_POST['username'])){
+		
+		$username = stripslashes($_REQUEST['username']); // removes backslashes
+		$username = mysqli_real_escape_string($link,$username); //escapes special characters in a string
+		$password = stripslashes($_REQUEST['password']);
+		$password = mysqli_real_escape_string($link,$password);
+		
+	//Checking is user existing in the database or not - switch between dbs
+	if(isset($_POST['isdoc']))
+	{
+		$query = "SELECT * FROM `Doctors` WHERE Username='$username' and Password='".md5($password)."'";
+		$result = mysqli_query($link,$query) or die(mysqli_error());
+		$rows = mysqli_num_rows($result);
+        if($rows==1){
+			$_SESSION['username'] = $username;
+			header("Location: index2.php"); // Redirect user to index.php
+            }else{
+				echo "<div class='form'><h3>Username/password is incorrect.</h3><br/>Click here to <a href='index.php'>Login</a></div>";
+				}
+	}
+	else
+	{
+		$query = "SELECT * FROM `Patients` WHERE Username='$username' and Password='".md5($password)."'";
+		$result = mysqli_query($con,$query) or die(mysqli_error());
+		$rows = mysqli_num_rows($result);
+        if($rows==1){
+			$_SESSION['username'] = $username;
+			header("Location: index2_Patient.php"); // Redirect user to index.php
+            }else{
+				echo "<div class='form'><h3>Username/password is incorrect.</h3><br/>Click here to <a href='index.php'>Login</a></div>";
+				}
+	}
+        
+    }else{
+?>
+<div class="form">
+<h1>Log In</h1>
+<form action="" method="post" name="login">
+<input type="checkbox" name="isdoc" value="Doctor"/>Are you a doctor?<br/>
+<input type="text" name="username" placeholder="Username" required />
+<input type="password" name="password" placeholder="Password" required />
+<input name="submit" type="submit" value="Login" />
+</form>
+<p>Not registered yet? <a href='registration.php'>Register Here</a></p>
+
+<br /><br />
+
+</div>
+<?php } ?>
+
+
+</body>
+</html>
