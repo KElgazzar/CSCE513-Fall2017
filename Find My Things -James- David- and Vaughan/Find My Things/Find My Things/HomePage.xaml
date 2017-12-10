@@ -1,0 +1,160 @@
+﻿<Page x:Class="Find_My_Things.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Find_My_Things"
+      mc:Ignorable="d" 
+      Title="HomePage">
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Image Source="/Assets/FindMyThingsRainbow.png" Stretch="Fill"/>
+        <Grid Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Name="gridError" Margin="20,10,20,0" Visibility="Collapsed" Background="White" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="4">
+                <Grid Background="Black" Margin="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TextBlock Name="txtError" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                </Grid>
+            </Grid>
+            <TextBlock Name="txtServiceName" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" />
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" Grid.Column="1" Grid.Row="5" Grid.RowSpan="6" Grid.ColumnSpan="4">
+                <Grid Name="gridObserve" Background="Blue" Visibility="Collapsed">
+                    <Grid Background="Black" Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="7*"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <ListView Name="lvObserveInfo" Grid.Row="1" BorderBrush="White" BorderThickness="2" Grid.Column="1" Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            </ListView>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Name="gridInteract" Background="Green" Visibility="Collapsed">
+                    <Grid Background="Black" Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition />
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button Name="btnTurnOff" Grid.Row="1" Grid.Column="1" Click="btnTurnOff_Click" FontSize="18" Content="Turn Off" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="2"/>
+                            <Button Name="btnTurnOn" Grid.Row="1" Grid.Column="3" Click="btnTurnOn_Click" FontSize="18" Content="Turn On" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="2"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Button Name="btnNewIP" Click="btnNewIP_Click" Grid.Row="4" Grid.Column="7" Content="Try New IP" Background="Transparent" BorderBrush="White" BorderThickness="2" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" Padding="7"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="8" HorizontalAlignment="Right" Margin="0,0,0,0">
+                <Button Name="btnAddDependency" Click="btnAddDependency_Click" Grid.Row="4" Grid.Column="8" FontFamily="Segoe MDL2 Assets" Height="44" Width="44" Margin="0,0,5,0" Content="&#xE109;" Foreground="White" FontSize="30" Background="Black" BorderBrush="White" BorderThickness="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Button Name="btnRefresh" Click="btnRefresh_Click" Height="44" Width="44" FontFamily="Segoe MDL2 Assets" Content="&#xE149;" BorderBrush="White" BorderThickness="2" Foreground="White" Background="Transparent" FontSize="30"/>
+            </StackPanel>
+            <Grid Grid.Row="4" Grid.Column="9" Grid.ColumnSpan="2">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Name="cbServices" HorizontalAlignment="Stretch" Margin="20,0,0,0" VerticalContentAlignment="Center" SelectionChanged="cbServices_SelectionChanged" Foreground="Black" Background="White" Grid.Row="1" FontSize="20">
+                        <!--<ComboBox.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Black" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Black" />
+                        </ComboBox.Resources>-->
+                    </ComboBox>
+                </Grid>
+            </Grid>
+            <Grid Background="Red" Grid.Column="7" Grid.Row="5" Grid.RowSpan="6" Grid.ColumnSpan="4">
+                <ListView Name="lvServices" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionChanged="lvServices_SelectionChanged" Background="Black" Margin="5" FontSize="50">
+                </ListView>
+            </Grid>
+            <Popup Name="PopupIFFT" Grid.ColumnSpan="12" Grid.RowSpan="12" IsOpen="False" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Grid Name="gridPopup" Background="White" Visibility="Collapsed" Grid.ColumnSpan="6" Grid.Column="3" Grid.Row="4" Grid.RowSpan="5">
+                <Grid Background="Black" Margin="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                    <TextBlock Name="txtPopupTitle" Grid.Column="1" Grid.ColumnSpan="2" Text="Add Placeholder Listener" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+                    <Grid Grid.Column="2" Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Foreground="White" Text="Set Threshold Value" VerticalAlignment="Center" FontSize="17" Grid.Row="0" Grid.Column="1"/>
+                        <TextBox Name="txtBoxThreshold" Grid.Row="1" Grid.Column="1"/>
+                        <TextBlock Text="Update Interval(seconds)" FontSize="17" Foreground="White" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+                        <TextBox Name="txtBoxInterval" Grid.Row="3" Grid.Column="1"/>
+                    </Grid>
+                <Grid Background="White" Grid.Row="2" Grid.Column="1">
+                    <ListView Name="lvPopup" Margin="2" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionChanged="lvPopup_SelectionChanged" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="18" Background="Black"/>
+                </Grid>
+                <StackPanel Grid.Row="4" Grid.Column="1" Margin="0,0,0,15" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button Name="btnOK" Height="30" Width="40" Click="btnOK_Click" Content="OK" Foreground="White" Background="Black" BorderBrush="White" BorderThickness="2" Margin="0,0,5,0"/>
+                    <Button Name="btnCancel" Height="30" Width="50" Click="btnCancel_Click" Content="Cancel" Foreground="White" Background="Black" BorderBrush="White" BorderThickness="2" />
+                </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
