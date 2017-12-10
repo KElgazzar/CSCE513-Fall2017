@@ -1,55 +1,138 @@
 <?php
-/*
-Author: Javed Ur Rehman
-Website: http://www.allphptricks.com/
-*/
+
+   $errorMsg = "";
+
+	$validUser = "";
+
+    $validUser = !empty($_POST['value']) ? $_POST['value'] : '';
+
+    $error = "";
+
+    $error = !empty($_POST['value']) ? $_POST['value'] : '';
+
+    $_POST["sub"] = "";
+
+    $_POST["sub"] = !empty($_POST['value']) ? $_POST['value'] : '';
+
+    //error_reporting( error_reporting() & ~E_NOTICE )
+
+	error_reporting(0);
+	@ini_set('display_errors', 0);
+
+
+
+if(isset($_POST["sub"])) {
+  
+  $validUser = $_POST["username"] == "admin" && $_POST["password"] == "password";
+
+  if(!$validUser) $error = "Invalid username or password.";
+
+  if($validUser) {
+
+        header("location: selectPatient.php"); die();
+
+  }
+
+}
+
+
+
+
+
 ?>
-<!DOCTYPE html>
+
 <html>
-<head>
-<meta charset="utf-8">
-<title>Login</title>
-<link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-<?php
-	require('db.php');
-	session_start();
-    // If form submitted, insert values into the database.
-    if (isset($_POST['username'])){
-		
-		$username = stripslashes($_REQUEST['username']); // removes backslashes
-		$username = mysqli_real_escape_string($con,$username); //escapes special characters in a string
-		$password = stripslashes($_REQUEST['password']);
-		$password = mysqli_real_escape_string($con,$password);
-		
-	//Checking is user existing in the database or not
-        $query = "SELECT * FROM `users` WHERE username='$username' and password='".md5($password)."'";
-		$result = mysqli_query($con,$query) or die(mysql_error());
-		$rows = mysqli_num_rows($result);
-        if($rows==1){
-			$_SESSION['username'] = $username;
-			header("Location: index.php"); // Redirect user to index.php
-            }else{
-				echo "<div class='form'><h3>Username/password is incorrect.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
-				}
-    }else{
-?>
-<div class="form">
-<h1>Log In</h1>
-<form action="" method="post" name="login">
-<input type="text" name="username" placeholder="Username" required />
-<input type="password" name="password" placeholder="Password" required />
-<input name="submit" type="submit" value="Login" />
-</form>
-<p>Not registered yet? <a href='registration.php'>Register Here</a></p>
-
-<br /><br />
-<a href="http://www.allphptricks.com/simple-user-registration-login-script-in-php-and-mysqli/">Tutorial Link</a> <br /><br />
-For More Web Development Tutorials Visit: <a href="http://www.allphptricks.com/">AllPHPTricks.com</a>
-</div>
-<?php } ?>
 
 
-</body>
+
+   <head>
+
+      <title>Login Page</title>
+
+
+
+      <style type = "text/css">
+
+         body {
+
+            font-family:Arial, Helvetica, sans-serif;
+
+            font-size:14px;
+
+         }
+
+
+
+         label {
+
+            font-weight:bold;
+
+            width:100px;
+
+            font-size:14px;
+
+         }
+
+
+
+         .box {
+
+            border:#666666 solid 1px;
+
+         }
+
+      </style>
+
+
+
+   </head>
+
+
+
+   <body bgcolor = "#FFFFFF">
+
+
+
+      <div align = "center">
+
+         <div style = "width:300px; border: solid 1px #333333; " align = "left">
+
+            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>Login Page</b></div>
+
+
+
+            <div style = "margin:30px">
+
+
+
+               <form action = "" method = "post">
+
+                  <label>UserName  :</label><input type = "text" name = "username" class = "box"/><br /><br />
+
+                  <label>Password  :</label><input type = "password" name = "password" class = "box" /><br/><br />
+
+                  <input type="submit" value="Submit" name="sub" />
+
+               </form>
+
+
+
+               <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
+
+
+
+            </div>
+
+
+
+         </div>
+
+
+
+      </div>
+
+
+
+   </body>
+
 </html>
